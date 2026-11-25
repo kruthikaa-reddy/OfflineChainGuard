@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transaction Edit History | OfflineChainGuard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #DCE8E6;
+            margin: 0;
+            padding: 40px 20px;
+            color: #173F46;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: auto;
+            background: #F7FAF9;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(23, 63, 70, 0.12);
+        }
+
+        h2 {
+            text-align: center;
+            color: #173F46;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #668487;
+            margin-bottom: 30px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1050px;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: #173F46;
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #DCE8E6;
+            font-size: 14px;
+        }
+
+        tr:nth-child(even) {
+            background: #EDF4F2;
+        }
+
+        tr:hover {
+            background: #E0EEEB;
+        }
+
+        .hash {
+            font-family: Consolas, monospace;
+            font-size: 12px;
+            color: #28666E;
+            overflow-wrap: anywhere;
+            min-width: 220px;
+            max-width: 300px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 11px 18px;
+            background: #28666E;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #173F46;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 25px;
+            color: #668487;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 22px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Transaction Amendment History</h2>
+
+        <p class="subtitle">
+            Track previous transaction details, changes and amendment hashes
+        </p>
+
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Old Sender</th>
+                    <th>Old Receiver</th>
+                    <th>Old Amount</th>
+                    <th>New Sender</th>
+                    <th>New Receiver</th>
+                    <th>New Amount</th>
+                    <th>Edited At</th>
+                    <th>Amendment Hash</th>
+                </tr>
+
+                {% for item in history %}
+                <tr>
+                    <td>{{ item['transaction_id'] }}</td>
+                    <td>{{ item['old_sender'] }}</td>
+                    <td>{{ item['old_receiver'] }}</td>
+                    <td>{{ item['old_amount'] }}</td>
+                    <td>{{ item['new_sender'] }}</td>
+                    <td>{{ item['new_receiver'] }}</td>
+                    <td>{{ item['new_amount'] }}</td>
+                    <td>{{ item['edited_at'] }}</td>
+                    <td class="hash">{{ item['amendment_hash'] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="9" class="empty-message">
+                        No transaction amendment history available yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <a href="/transactions" class="back-btn">
+            ← Back to Transactions
+        </a>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Conflict Review | OfflineChainGuard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #F5F2EE;
+            margin: 0;
+            padding: 30px 20px;
+            color: #292D32;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header {
+            background: #292D32;
+            color: #FFFFFF;
+            padding: 28px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0 0 10px;
+            color: #E6C8B2;
+        }
+
+        .header p {
+            color: #D4D0CB;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #B87550;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background: #FFFFFF;
+            border: 1px solid #E3D9D0;
+            border-radius: 14px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 5px 18px rgba(41, 45, 50, 0.07);
+        }
+
+        .card h2 {
+            color: #414951;
+            margin-top: 0;
+        }
+
+        .columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 22px 0;
+        }
+
+        .panel {
+            background: #F5F2EE;
+            border: 1px solid #E5DCD3;
+            border-radius: 10px;
+            padding: 17px;
+        }
+
+        .panel h3 {
+            margin-top: 0;
+            color: #414951;
+            font-size: 16px;
+            border-bottom: 2px solid #B87550;
+            padding-bottom: 10px;
+        }
+
+        .value {
+            margin: 12px 0;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .muted {
+            color: #777D82;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #F3DFD1;
+            color: #914E2E;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        .section-title {
+            color: #414951;
+            margin-top: 25px;
+        }
+
+        button {
+            border: none;
+            border-radius: 7px;
+            padding: 12px 17px;
+            cursor: pointer;
+            margin: 6px 5px 6px 0;
+            background: #B87550;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #965A3B;
+        }
+
+        button.secondary {
+            background: #414951;
+        }
+
+        button.secondary:hover {
+            background: #292D32;
+        }
+
+        .manual {
+            margin-top: 22px;
+            padding-top: 20px;
+            border-top: 1px solid #E3D9D0;
+        }
+
+        .manual h3 {
+            color: #965A3B;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #414951;
+            margin-top: 13px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 11px;
+            margin: 7px 0 12px;
+            border: 1px solid #D5CBC2;
+            border-radius: 7px;
+            background: #FAF8F5;
+            font-size: 14px;
+            color: #292D32;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #B87550;
+            box-shadow: 0 0 0 3px rgba(184, 117, 80, 0.13);
+        }
+
+        .flash {
+            background: #F3DFD1;
+            color: #75452F;
+            padding: 13px 16px;
+            border-radius: 8px;
+            border-left: 4px solid #B87550;
+            margin: 12px 0;
+        }
+
+        .empty-card {
+            text-align: center;
+            padding: 35px;
+        }
+
+        .empty-card h2 {
+            color: #47745D;
+        }
+
+        @media (max-width: 750px) {
+            .columns {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 14px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .header {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>OfflineChainGuard — Conflict Review</h1>
+        <p>
+            Review transaction differences and securely resolve
+            conflicting offline amendments.
+        </p>
+    </div>
+
+    <a href="/" class="back-link">← Back to Dashboard</a>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="flash">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if not conflicts %}
+        <div class="card empty-card">
+            <h2>No Unresolved Conflicts</h2>
+            <p class="muted">
+                Conflicting offline amendments will appear here
+                after synchronization.
+            </p>
+        </div>
+    {% endif %}
+
+    {% for item in conflicts %}
+
+    <div class="card">
+
+        <h2>
+            Transaction #{{ item["transaction_id"] }}
+            <span class="tag">CONFLICT</span>
+        </h2>
+
+        <p class="muted">
+            Amendment #{{ item["id"] }} ·
+            Device: {{ item["device_id"] }} ·
+            Request: {{ item["request_id"] }}
+        </p>
+
+        <p class="muted">
+            Proposal created: {{ item["created_at"] }} ·
+            Base version: {{ item["base_version"] }} ·
+            Current version: {{ item["current_version"] }}
+        </p>
+
+        <div class="columns">
+
+            <div class="panel">
+                <h3>Latest Transaction</h3>
+
+                <div class="value">
+                    Sender: <strong>{{ item["current_sender"] }}</strong>
+                </div>
+
+                <div class="value">
+                    Receiver: <strong>{{ item["current_receiver"] }}</strong>
+                </div>
+
+                <div class="value">
+                    Amount: <strong>{{ item["current_amount"] }}</strong>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Conflicting Proposal</h3>
+
+                <div class="value">
+                    Sender: <strong>{{ item["new_sender"] }}</strong>
+                </div>
+
+                <div class="value">
+                    Receiver: <strong>{{ item["new_receiver"] }}</strong>
+                </div>
+
+                <div class="value">
+                    Amount: <strong>{{ item["new_amount"] }}</strong>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Version Comparison</h3>
+
+                <div class="value">
+                    Proposal base:
+                    <strong>{{ item["base_version"] }}</strong>
+                </div>
+
+                <div class="value">
+                    Current version:
+                    <strong>{{ item["current_version"] }}</strong>
+                </div>
+
+                <div class="value muted">
+                    The proposal was made against an older version.
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="section-title">Choose How to Resolve</h3>
+
+        <form method="POST"
+              action="{{ url_for('resolve_conflict_route', amendment_id=item['id']) }}">
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <button type="submit" name="action" value="KEEP_CURRENT"
+                    class="secondary">
+                Keep Latest Values
+            </button>
+        </form>
+
+        <form method="POST"
+              action="{{ url_for('resolve_conflict_route', amendment_id=item['id']) }}">
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <button type="submit" name="action" value="ACCEPT_PROPOSED">
+                Accept Conflicting Proposal
+            </button>
+        </form>
+
+        <div class="manual">
+
+            <h3>Manual Resolution</h3>
+
+            <p class="muted">
+                Enter your preferred transaction details to resolve
+                this conflict manually.
+            </p>
+
+            <form method="POST"
+                  action="{{ url_for('resolve_conflict_route', amendment_id=item['id']) }}">
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="action" value="MANUAL">
+
+                <label>Sender</label>
+                <input name="sender"
+                       value="{{ item['current_sender'] }}" required>
+
+                <label>Receiver</label>
+                <input name="receiver"
+                       value="{{ item['current_receiver'] }}" required>
+
+                <label>Amount</label>
+                <input name="amount"
+                       type="number"
+                       min="0.01"
+                       step="0.01"
+                       value="{{ item['current_amount'] }}"
+                       required>
+
+                <button type="submit">Save Manual Resolution</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

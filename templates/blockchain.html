@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain | OfflineChainGuard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 35px 20px;
+            font-family: Arial, sans-serif;
+            background: #202A38;
+            color: #F4F1E9;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header {
+            background: #293749;
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 5px solid #B69B59;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #E8DDBB;
+        }
+
+        .header p {
+            color: #C5CDD6;
+            line-height: 1.6;
+        }
+
+        .summary {
+            background: #344761;
+            border: 1px solid #596A7D;
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 30px;
+        }
+
+        .summary h3 {
+            color: #E8DDBB;
+            margin: 0 0 10px;
+        }
+
+        .count {
+            font-size: 32px;
+            font-weight: bold;
+            color: #D6C49A;
+        }
+
+        .block {
+            background: #F4F1E9;
+            color: #26364D;
+            padding: 24px;
+            border-radius: 13px;
+            margin-bottom: 22px;
+            border-left: 5px solid #B69B59;
+            box-shadow: 0 7px 18px rgba(0,0,0,0.15);
+        }
+
+        .block-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .block-heading h2 {
+            margin: 0;
+            color: #26364D;
+        }
+
+        .block-number {
+            background: #E8DDBB;
+            color: #26364D;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .detail {
+            margin: 15px 0;
+        }
+
+        .detail strong {
+            display: block;
+            color: #52657B;
+            margin-bottom: 7px;
+            font-size: 13px;
+        }
+
+        .detail p,
+        .detail pre {
+            margin: 0;
+            background: #E9EEF5;
+            padding: 12px;
+            border-radius: 7px;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .hash {
+            color: #755E2F;
+            font-family: monospace;
+        }
+
+        .empty {
+            background: #344761;
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+            color: #E8DDBB;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .actions a {
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .verify {
+            background: #B69B59;
+            color: #202A38;
+        }
+
+        .home {
+            background: #F4F1E9;
+            color: #26364D;
+        }
+
+        .actions a:hover {
+            opacity: 0.85;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .header {
+                padding: 22px;
+            }
+
+            .block {
+                padding: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Blockchain Explorer</h1>
+        <p>
+            View the blocks recorded in OfflineChainGuard
+            and inspect their transaction data and cryptographic hashes.
+        </p>
+    </div>
+
+    <div class="summary">
+        <h3>Total Blocks in Blockchain</h3>
+        <div class="count">{{ total_blocks }}</div>
+    </div>
+
+    {% if blocks %}
+
+        {% for block in blocks %}
+
+            <div class="block">
+
+                <div class="block-heading">
+                    <h2>Blockchain Block</h2>
+                    <span class="block-number">
+                        Block #{{ block.index }}
+                    </span>
+                </div>
+
+                <div class="detail">
+                    <strong>Timestamp</strong>
+                    <p>{{ block.timestamp }}</p>
+                </div>
+
+                <div class="detail">
+                    <strong>Transaction Data</strong>
+                    <pre>{{ block.data | tojson(indent=2) }}</pre>
+                </div>
+
+                <div class="detail">
+                    <strong>Previous Hash</strong>
+                    <p class="hash">{{ block.previous_hash }}</p>
+                </div>
+
+                <div class="detail">
+                    <strong>Current Block Hash</strong>
+                    <p class="hash">{{ block.hash }}</p>
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+            No blocks are currently available in the blockchain.
+        </div>
+
+    {% endif %}
+
+    <div class="actions">
+        <a href="/verify_blockchain" class="verify">
+            Verify Blockchain
+        </a>
+
+        <a href="/" class="home">
+            Back to Dashboard
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

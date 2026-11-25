@@ -1,0 +1,565 @@
+[
+    {
+        "index": 0,
+        "timestamp": "2026-11-09T12:00:45.196000",
+        "data": {
+            "message": "Genesis Block"
+        },
+        "previous_hash": "0",
+        "hash": "f1de8c424f6c609fd9de4ebaf3ed1008d0cb896baad0c2f35c6720a6922dee91"
+    },
+    {
+        "index": 1,
+        "timestamp": "2026-11-09T12:14:08.144970",
+        "data": {
+            "transaction_id": 4,
+            "sender": "Riya",
+            "receiver": "Joo",
+            "amount": 300.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "f1de8c424f6c609fd9de4ebaf3ed1008d0cb896baad0c2f35c6720a6922dee91",
+        "hash": "d92ecc4b14e8bafa013e7c0c3a5e354eeb49f1dfe0076ad9b00d8de526c2d9c3"
+    },
+    {
+        "index": 2,
+        "timestamp": "2026-11-09T12:15:43.700128",
+        "data": {
+            "transaction_id": 4,
+            "type": "TRANSACTION_AMENDMENT",
+            "old_data": {
+                "sender": "Riya",
+                "receiver": "Joo",
+                "amount": 300.0
+            },
+            "new_data": {
+                "sender": "Riya",
+                "receiver": "Joo",
+                "amount": 700.0
+            },
+            "amendment_hash": "0cb7950b0ff1941f308bac7b837a3a0b68d43f4dc8681d091232a6e8eda0df53",
+            "edited_at": "2026-11-09T12:15:43.669874"
+        },
+        "previous_hash": "d92ecc4b14e8bafa013e7c0c3a5e354eeb49f1dfe0076ad9b00d8de526c2d9c3",
+        "hash": "d864d60638774a28606c5e5f927050121823b5abd714d0e8bd7a6ceda374c35d"
+    },
+    {
+        "index": 3,
+        "timestamp": "2026-11-11T18:23:39.601621",
+        "data": {
+            "type": "OFFLINE_AMENDMENT_SYNCED",
+            "transaction_id": 4,
+            "device_id": "DEVICE_A",
+            "request_id": "A-001",
+            "base_version": 1,
+            "new_version": 2,
+            "old_data": {
+                "sender": "Riya",
+                "receiver": "Joo",
+                "amount": 700.0
+            },
+            "new_data": {
+                "sender": "Riya",
+                "receiver": "Joo",
+                "amount": 800.0
+            },
+            "amendment_hash": "966e7a7cebda5719428b7d3f7e1b758726ad7dbdc9658ed7b0db1a207239336f",
+            "synced_at": "2026-11-11T18:23:39.600642"
+        },
+        "previous_hash": "d864d60638774a28606c5e5f927050121823b5abd714d0e8bd7a6ceda374c35d",
+        "hash": "d91c4906fa6df231b0019f325e98fd5f105ba69a299ba49f0bf70c945a0e2b61"
+    },
+    {
+        "index": 4,
+        "timestamp": "2026-11-11T21:34:45.812677",
+        "data": {
+            "type": "OFFLINE_CONFLICT_RESOLVED",
+            "amendment_id": 2,
+            "transaction_id": 4,
+            "device_id": "DEVICE_B",
+            "request_id": "B-001",
+            "action": "ACCEPT_PROPOSED",
+            "base_version": 1,
+            "version_before": 2,
+            "version_after": 3,
+            "current_data": {
+                "sender": "Riya",
+                "receiver": "Joo",
+                "amount": 800.0
+            },
+            "proposed_data": {
+                "sender": "Riya",
+                "receiver": "Joo",
+                "amount": 900.0
+            },
+            "resolved_data": {
+                "sender": "Riya",
+                "receiver": "Joo",
+                "amount": 900.0
+            },
+            "resolved_at": "2026-11-11T21:34:45.808045",
+            "resolution_hash": "9093795c6279e84a2b9e30641f2f5b1aa53b8270707c73f3e194d41c55768dd4"
+        },
+        "previous_hash": "d91c4906fa6df231b0019f325e98fd5f105ba69a299ba49f0bf70c945a0e2b61",
+        "hash": "e3e5d59d1fff2a11798b2a7e02afbe36c7cb4eee6291547837aeca66d9418caf"
+    },
+    {
+        "index": 5,
+        "timestamp": "2026-11-11T21:42:17.305491",
+        "data": {
+            "transaction_id": 5,
+            "sender": "testsender",
+            "receiver": "testreceiver",
+            "amount": 1000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "e3e5d59d1fff2a11798b2a7e02afbe36c7cb4eee6291547837aeca66d9418caf",
+        "hash": "8cb6e0d920da28a226c7e5bbfee20f70fafb85c9597e97d3c73bf69164ee04f5"
+    },
+    {
+        "index": 6,
+        "timestamp": "2026-11-11T21:50:28.416058",
+        "data": {
+            "type": "OFFLINE_AMENDMENT_SYNCED",
+            "transaction_id": 5,
+            "device_id": "DEVICE_A",
+            "request_id": "A-005",
+            "base_version": 1,
+            "new_version": 2,
+            "old_data": {
+                "sender": "testsender",
+                "receiver": "testreceiver",
+                "amount": 1000.0
+            },
+            "new_data": {
+                "sender": "testsender",
+                "receiver": "testreceiver",
+                "amount": 1100.0
+            },
+            "amendment_hash": "faa216725f0d31bc412a150f8226dec8ee3ae6fa7d64dfe792b0696337478511",
+            "synced_at": "2026-11-11T21:50:28.413739"
+        },
+        "previous_hash": "8cb6e0d920da28a226c7e5bbfee20f70fafb85c9597e97d3c73bf69164ee04f5",
+        "hash": "9a40f6f734cb5d26f1f463261935095bea81f41f1a17dbfa49912f7956bda928"
+    },
+    {
+        "index": 7,
+        "timestamp": "2026-11-11T21:55:15.481668",
+        "data": {
+            "type": "OFFLINE_CONFLICT_RESOLVED",
+            "amendment_id": 4,
+            "transaction_id": 5,
+            "device_id": "DEVICE_B",
+            "request_id": "B-005",
+            "action": "KEEP_CURRENT",
+            "base_version": 1,
+            "version_before": 2,
+            "version_after": 2,
+            "current_data": {
+                "sender": "testsender",
+                "receiver": "testreceiver",
+                "amount": 1100.0
+            },
+            "proposed_data": {
+                "sender": "testsender",
+                "receiver": "testreceiver",
+                "amount": 1200.0
+            },
+            "resolved_data": {
+                "sender": "testsender",
+                "receiver": "testreceiver",
+                "amount": 1100.0
+            },
+            "resolved_at": "2026-11-11T21:55:15.476501",
+            "resolution_hash": "22b2c179a12980d5d9d4d452b0d718d5cde2626c7fed150224ece7293b65b564"
+        },
+        "previous_hash": "9a40f6f734cb5d26f1f463261935095bea81f41f1a17dbfa49912f7956bda928",
+        "hash": "35f7f6113be0445887dccb58151c608c986c5e2ac633efa56e448d46bfb5188b"
+    },
+    {
+        "index": 8,
+        "timestamp": "2026-11-11T22:02:35.294168",
+        "data": {
+            "transaction_id": 6,
+            "sender": "tester1",
+            "receiver": "tester2",
+            "amount": 1500.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "35f7f6113be0445887dccb58151c608c986c5e2ac633efa56e448d46bfb5188b",
+        "hash": "fba1de057e8862d7de9b9678d9cbc266a08354b2c49743d65c26be9fd70a8ab3"
+    },
+    {
+        "index": 9,
+        "timestamp": "2026-11-12T20:34:52.588694",
+        "data": {
+            "type": "OFFLINE_AMENDMENT_SYNCED",
+            "transaction_id": 6,
+            "device_id": "DEVICE_A",
+            "request_id": "A-006",
+            "base_version": 1,
+            "new_version": 2,
+            "old_data": {
+                "sender": "tester1",
+                "receiver": "tester2",
+                "amount": 1500.0
+            },
+            "new_data": {
+                "sender": "tester1",
+                "receiver": "tester2",
+                "amount": 1600.0
+            },
+            "amendment_hash": "d562df80bf397086166e108267066cdc54389f775e8b9ca2b52115f383586717",
+            "synced_at": "2026-11-12T20:34:52.582013"
+        },
+        "previous_hash": "fba1de057e8862d7de9b9678d9cbc266a08354b2c49743d65c26be9fd70a8ab3",
+        "hash": "85a8e8dc092aad9753176aba621cb5f8119ea08b1c58568f3803d3a1ce9756bd"
+    },
+    {
+        "index": 10,
+        "timestamp": "2026-11-12T20:37:09.908425",
+        "data": {
+            "type": "OFFLINE_CONFLICT_RESOLVED",
+            "amendment_id": 6,
+            "transaction_id": 6,
+            "device_id": "DEVICE_B",
+            "request_id": "B-006",
+            "action": "MANUAL",
+            "base_version": 1,
+            "version_before": 2,
+            "version_after": 3,
+            "current_data": {
+                "sender": "tester1",
+                "receiver": "tester2",
+                "amount": 1600.0
+            },
+            "proposed_data": {
+                "sender": "tester1",
+                "receiver": "tester2",
+                "amount": 1700.0
+            },
+            "resolved_data": {
+                "sender": "tester1",
+                "receiver": "tester2",
+                "amount": 1600.0
+            },
+            "resolved_at": "2026-11-12T20:37:09.906353",
+            "resolution_hash": "7a3bd94706d2da55aede838a232034cc257aa6fbe249f8c698e4134c0cc2c9ca"
+        },
+        "previous_hash": "85a8e8dc092aad9753176aba621cb5f8119ea08b1c58568f3803d3a1ce9756bd",
+        "hash": "e7ae366e5092d5a501ddb69ce6cd5ae1a9961caaf1b038745e3fa9b70de66fcf"
+    },
+    {
+        "index": 11,
+        "timestamp": "2026-11-13T20:40:32.547072",
+        "data": {
+            "transaction_id": 7,
+            "sender": "abbb",
+            "receiver": "cccc",
+            "amount": 1000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "e7ae366e5092d5a501ddb69ce6cd5ae1a9961caaf1b038745e3fa9b70de66fcf",
+        "hash": "07fc61008037250413dd697b2363ba8733133f8f58128d67ef69d606c2b03e58"
+    },
+    {
+        "index": 12,
+        "timestamp": "2026-11-13T21:39:44.489248",
+        "data": {
+            "type": "OFFLINE_AMENDMENT_SYNCED",
+            "transaction_id": 7,
+            "device_id": "DUPLICATE_TEST",
+            "request_id": "DUPLICATE_001",
+            "base_version": 1,
+            "new_version": 2,
+            "old_data": {
+                "sender": "abbb",
+                "receiver": "cccc",
+                "amount": 1000.0
+            },
+            "new_data": {
+                "sender": "SecurityTest",
+                "receiver": "IntegrityTest",
+                "amount": 700.0
+            },
+            "amendment_hash": "13fd0b2aae8bb4ffaf4fd0239de6bbf64fad5328a224214696ed74efc934368c",
+            "synced_at": "2026-11-13T21:39:44.482811"
+        },
+        "previous_hash": "07fc61008037250413dd697b2363ba8733133f8f58128d67ef69d606c2b03e58",
+        "hash": "f31f56ee61afe365575421fe4037dc37baec00ca633bbffb854c5e1604a8c368"
+    },
+    {
+        "index": 13,
+        "timestamp": "2026-11-13T22:31:36.069802",
+        "data": {
+            "type": "OFFLINE_AMENDMENT_SYNCED",
+            "transaction_id": 7,
+            "device_id": "AUTO_ID_TEST",
+            "request_id": "e4f6663d-815c-4774-ac0c-6cdeb18693e1",
+            "base_version": 2,
+            "new_version": 3,
+            "old_data": {
+                "sender": "SecurityTest",
+                "receiver": "IntegrityTest",
+                "amount": 700.0
+            },
+            "new_data": {
+                "sender": "SecurityTest",
+                "receiver": "IntegrityTest",
+                "amount": 800.0
+            },
+            "amendment_hash": "155c8c0ef8c6b6d45ae537ffd264efeb8a1356cafc5441c6244e94f4b0c565ef",
+            "synced_at": "2026-11-13T22:31:36.064283"
+        },
+        "previous_hash": "f31f56ee61afe365575421fe4037dc37baec00ca633bbffb854c5e1604a8c368",
+        "hash": "439da3b219cba40b9b0c1e1d62f9e5880bb58a07d629b8ff93d77888dd232846"
+    },
+    {
+        "index": 14,
+        "timestamp": "2026-11-14T13:15:45.156008",
+        "data": {
+            "transaction_id": 7,
+            "type": "TRANSACTION_AMENDMENT",
+            "old_data": {
+                "sender": "SecurityTest",
+                "receiver": "IntegrityTest",
+                "amount": 800.0
+            },
+            "new_data": {
+                "sender": "SecurityTest",
+                "receiver": "IntegrityTest",
+                "amount": 800.0
+            },
+            "amendment_hash": "2812d5e9b20ef22e16aef33a760e7395a82b63c8794acd79833bd0bacb57df9b",
+            "edited_at": "2026-11-14T13:15:45.133397"
+        },
+        "previous_hash": "439da3b219cba40b9b0c1e1d62f9e5880bb58a07d629b8ff93d77888dd232846",
+        "hash": "d46a479af4e70b42d3b9802c7daf31eba7cef65f2e32c42505371160a70042d8"
+    },
+    {
+        "index": 15,
+        "timestamp": "2026-11-23T18:03:39.009959",
+        "data": {
+            "transaction_id": 8,
+            "sender": "ABC",
+            "receiver": "XYZ",
+            "amount": 1000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "d46a479af4e70b42d3b9802c7daf31eba7cef65f2e32c42505371160a70042d8",
+        "hash": "ae51f2123e8e4439ef677c64bf326d4a5feef71af8d8d91ab5f102dba51f1c34"
+    },
+    {
+        "index": 16,
+        "timestamp": "2026-11-23T18:16:30.382854",
+        "data": {
+            "transaction_id": 9,
+            "sender": "test_alice",
+            "receiver": "test_bob",
+            "amount": 500.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "ae51f2123e8e4439ef677c64bf326d4a5feef71af8d8d91ab5f102dba51f1c34",
+        "hash": "10ebd391518e5d776803fc0256294d5f20736eb54ec4a769e797a7255426fc83"
+    },
+    {
+        "index": 17,
+        "timestamp": "2026-11-23T18:50:37.646925",
+        "data": {
+            "transaction_id": 10,
+            "sender": "Kruthika",
+            "receiver": "Reddy",
+            "amount": 5000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "10ebd391518e5d776803fc0256294d5f20736eb54ec4a769e797a7255426fc83",
+        "hash": "b28fa1d5a5075ae09c60ef6af7d455977684319633e9d80a6374d581e0d0bd71"
+    },
+    {
+        "index": 18,
+        "timestamp": "2026-11-23T18:51:33.162514",
+        "data": {
+            "transaction_id": 11,
+            "sender": "Kruthika",
+            "receiver": "Reddy",
+            "amount": 5000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "b28fa1d5a5075ae09c60ef6af7d455977684319633e9d80a6374d581e0d0bd71",
+        "hash": "3a52e248ccff846d21ccad71ee18df7edf08a5864462bbb8da63cb51474042bc"
+    },
+    {
+        "index": 19,
+        "timestamp": "2026-11-23T18:51:36.810743",
+        "data": {
+            "transaction_id": 12,
+            "sender": "Kruthika",
+            "receiver": "Reddy",
+            "amount": 5000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "3a52e248ccff846d21ccad71ee18df7edf08a5864462bbb8da63cb51474042bc",
+        "hash": "a5149f1c1a1b3c849db0a2a5ff310818666cdb54057c327d9cd3b2dc39a6d546"
+    },
+    {
+        "index": 20,
+        "timestamp": "2026-11-23T18:52:24.561626",
+        "data": {
+            "transaction_id": 13,
+            "sender": "Kruthika",
+            "receiver": "Reddy",
+            "amount": 5000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "a5149f1c1a1b3c849db0a2a5ff310818666cdb54057c327d9cd3b2dc39a6d546",
+        "hash": "1ac755f2e33f48f1f9f23462b5f07e1f82a0fdd1f2ebd054de2ef8613733457c"
+    },
+    {
+        "index": 21,
+        "timestamp": "2026-11-23T18:56:15.698885",
+        "data": {
+            "transaction_id": 14,
+            "sender": "Kruthika",
+            "receiver": "Shwetha",
+            "amount": 5000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "1ac755f2e33f48f1f9f23462b5f07e1f82a0fdd1f2ebd054de2ef8613733457c",
+        "hash": "d15f02402cb2ac304da488a669841d3636b8d33f7b08fa46c181f154cbbfa646"
+    },
+    {
+        "index": 22,
+        "timestamp": "2026-11-23T18:59:50.983911",
+        "data": {
+            "transaction_id": 15,
+            "sender": "test_offline",
+            "receiver": "test_offline1",
+            "amount": 50000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "d15f02402cb2ac304da488a669841d3636b8d33f7b08fa46c181f154cbbfa646",
+        "hash": "7df7064166d71103d02856a380559ab003bbe4d8913a1971bdfaaad64425586a"
+    },
+    {
+        "index": 23,
+        "timestamp": "2026-11-23T19:10:47.990501",
+        "data": {
+            "transaction_id": 16,
+            "sender": "test_offline",
+            "receiver": "test_offline1",
+            "amount": 50000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "7df7064166d71103d02856a380559ab003bbe4d8913a1971bdfaaad64425586a",
+        "hash": "5ecbf783bfa7ff15e501ac7402e82de38812883312d8a1a2ecaffbfbfdc3feef"
+    },
+    {
+        "index": 24,
+        "timestamp": "2026-11-23T19:11:45.023716",
+        "data": {
+            "transaction_id": 17,
+            "sender": "test_offline",
+            "receiver": "test_offline1",
+            "amount": 50000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "5ecbf783bfa7ff15e501ac7402e82de38812883312d8a1a2ecaffbfbfdc3feef",
+        "hash": "fec1d3b4bbbab2b7e86580016b4486203dd704518975e0fa52a9e27fdcfa71cf"
+    },
+    {
+        "index": 25,
+        "timestamp": "2026-11-23T19:11:45.053902",
+        "data": {
+            "transaction_id": 18,
+            "sender": "tester",
+            "receiver": "tester1",
+            "amount": 500000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "fec1d3b4bbbab2b7e86580016b4486203dd704518975e0fa52a9e27fdcfa71cf",
+        "hash": "db8523088da29031ed74a26288381aa0c643bc269b361b4a4ed43f24687aaddb"
+    },
+    {
+        "index": 26,
+        "timestamp": "2026-11-23T19:21:29.834703",
+        "data": {
+            "transaction_id": 19,
+            "sender": "ABC",
+            "receiver": "XYZ",
+            "amount": 5000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "db8523088da29031ed74a26288381aa0c643bc269b361b4a4ed43f24687aaddb",
+        "hash": "d0fb310bea7a25763430d6ae70dc0b841d6a728b69b626415c71a74a41230a51"
+    },
+    {
+        "index": 27,
+        "timestamp": "2026-11-23T19:23:01.680100",
+        "data": {
+            "transaction_id": 20,
+            "sender": "ABC",
+            "receiver": "XYZ",
+            "amount": 5000.0,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "d0fb310bea7a25763430d6ae70dc0b841d6a728b69b626415c71a74a41230a51",
+        "hash": "771166fcec86df1a319ed668c8863ef63f39f4649d36152e943251172746cead"
+    },
+    {
+        "index": 28,
+        "timestamp": "2026-11-24T09:29:45.346302",
+        "data": {
+            "transaction_id": 21,
+            "sender": "ABC",
+            "receiver": "alice",
+            "amount": 299.85,
+            "type": "NEW_TRANSACTION"
+        },
+        "previous_hash": "771166fcec86df1a319ed668c8863ef63f39f4649d36152e943251172746cead",
+        "hash": "4e3b194130e740233b2bc1320239ccbf7235eb63530fdb45fbae60d83b443cdc"
+    },
+    {
+        "index": 29,
+        "timestamp": "2026-11-24T09:31:21.673082",
+        "data": {
+            "transaction_id": 21,
+            "type": "TRANSACTION_AMENDMENT",
+            "old_data": {
+                "sender": "ABC",
+                "receiver": "alice",
+                "amount": 299.85
+            },
+            "new_data": {
+                "sender": "ABC",
+                "receiver": "alice",
+                "amount": 500.0
+            },
+            "amendment_hash": "bf91ac0116fab7fd080dd27096f941c3b974557dd04ef0c478c9e83491741b09",
+            "edited_at": "2026-11-24T09:31:21.649504"
+        },
+        "previous_hash": "4e3b194130e740233b2bc1320239ccbf7235eb63530fdb45fbae60d83b443cdc",
+        "hash": "84f53146ed953d3b8e4092c14e2b1881a841bbccbfb1defb5472794f8792ef47"
+    },
+    {
+        "index": 30,
+        "timestamp": "2026-11-24T13:59:24.563515",
+        "data": {
+            "transaction_id": 15,
+            "type": "TRANSACTION_AMENDMENT",
+            "old_data": {
+                "sender": "test_offline",
+                "receiver": "test_offline1",
+                "amount": 50000.0
+            },
+            "new_data": {
+                "sender": "test_offline",
+                "receiver": "test_offline1",
+                "amount": 700.0
+            },
+            "amendment_hash": "783acb1d1ac5ac6c410c81313aa9d7675930e764e056b98190951315ef3df876",
+            "edited_at": "2026-11-24T13:59:24.544974"
+        },
+        "previous_hash": "84f53146ed953d3b8e4092c14e2b1881a841bbccbfb1defb5472794f8792ef47",
+        "hash": "73963f57cb333cb5d88ccdf8808c7317962ac29c16a0bf67609ed77c89b34aae"
+    }
+]

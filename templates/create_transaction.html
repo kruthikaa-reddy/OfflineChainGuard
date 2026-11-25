@@ -1,0 +1,678 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Transaction | OfflineChainGuard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #E9EEF5;
+            margin: 0;
+            padding: 30px 15px;
+            color: #26364D;
+        }
+
+        .container {
+            max-width: 560px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(30, 50, 80, 0.12);
+        }
+
+        .icon {
+            width: 55px;
+            height: 55px;
+            background: #E8DDBB;
+            color: #344761;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 15px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #263B59;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7B8798;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #344761;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #CCD5E0;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #F8FAFC;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #B69B59;
+            box-shadow: 0 0 0 3px rgba(182, 155, 89, 0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #344761;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background: #26364D;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #9A8046;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .connection-box {
+            padding: 13px;
+            border-radius: 9px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .online {
+            background: #E8F5E9;
+            color: #28733A;
+        }
+
+        .offline {
+            background: #FFF0E6;
+            color: #A65321;
+        }
+
+        .pending-section {
+            margin-top: 25px;
+            padding: 18px;
+            background: #F5F7FA;
+            border: 1px solid #DCE3EC;
+            border-radius: 10px;
+        }
+
+        .pending-section h3 {
+            margin-top: 0;
+            color: #344761;
+            font-size: 17px;
+        }
+
+        .pending-item {
+            background: white;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #DCE3EC;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .pending-item strong {
+            color: #263B59;
+        }
+
+        .pending-status {
+            color: #A65321;
+            font-size: 12px;
+            margin-top: 6px;
+            font-weight: bold;
+        }
+
+        .empty-message {
+            color: #7B8798;
+            font-size: 14px;
+        }
+
+        #syncButton {
+            background: #9A8046;
+            margin-top: 15px;
+        }
+
+        #syncButton:hover {
+            background: #806A39;
+        }
+
+        #syncMessage {
+            text-align: center;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .flash-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            background: #E8F5E9;
+            color: #28733A;
+            text-align: center;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="icon">＋</div>
+
+    <h2>Create New Transaction</h2>
+
+    <p class="subtitle">
+        Create transactions online or save them offline
+    </p>
+
+    <div id="connectionStatus" class="connection-box"></div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" id="transactionForm">
+
+        <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ csrf_token() }}"
+        >
+
+        <div class="form-group">
+            <label>Sender</label>
+
+            <input
+                type="text"
+                name="sender"
+                placeholder="Enter sender name"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Receiver</label>
+
+            <input
+                type="text"
+                name="receiver"
+                placeholder="Enter receiver name"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Amount</label>
+
+            <input
+                type="number"
+                name="amount"
+                placeholder="Enter transaction amount"
+                step="0.01"
+                min="0.01"
+                required
+            >
+        </div>
+
+        <button type="submit" id="submitButton">
+            Create Transaction
+        </button>
+
+    </form>
+
+    <div class="pending-section">
+
+        <h3>Offline Transaction Queue</h3>
+
+        <p class="empty-message" id="emptyMessage">
+            No pending offline transactions.
+        </p>
+
+        <div id="pendingList"></div>
+
+        <button type="button" id="syncButton">
+            Synchronize Pending Transactions
+        </button>
+
+        <div id="syncMessage"></div>
+
+    </div>
+
+    <a href="/transactions" class="back-link">
+        ← Back to Transactions
+    </a>
+
+</div>
+
+<script>
+
+    const QUEUE_KEY = "offlinechainguard_pending_transactions";
+
+    const transactionForm = document.getElementById("transactionForm");
+    const connectionStatus = document.getElementById("connectionStatus");
+    const pendingList = document.getElementById("pendingList");
+    const emptyMessage = document.getElementById("emptyMessage");
+    const syncButton = document.getElementById("syncButton");
+    const syncMessage = document.getElementById("syncMessage");
+
+    let synchronizationInProgress = false;
+
+
+    // GET PENDING TRANSACTIONS
+
+    function getPendingTransactions() {
+
+        try {
+            return JSON.parse(localStorage.getItem(QUEUE_KEY)) || [];
+        }
+
+        catch (error) {
+            return [];
+        }
+    }
+
+
+    // SAVE PENDING TRANSACTIONS
+
+    function savePendingTransactions(transactions) {
+
+        localStorage.setItem(
+            QUEUE_KEY,
+            JSON.stringify(transactions)
+        );
+
+    }
+
+
+    // CONNECTION STATUS
+
+    function updateConnectionStatus() {
+
+        if (navigator.onLine) {
+
+            connectionStatus.textContent =
+                "🟢 Internet connection available";
+
+            connectionStatus.className =
+                "connection-box online";
+
+        }
+
+        else {
+
+            connectionStatus.textContent =
+                "🔴 Offline — transactions will be saved locally";
+
+            connectionStatus.className =
+                "connection-box offline";
+
+        }
+
+    }
+
+
+    // DISPLAY QUEUE
+
+    function displayPendingTransactions() {
+
+        const transactions = getPendingTransactions();
+
+        pendingList.innerHTML = "";
+
+        if (transactions.length === 0) {
+
+            emptyMessage.style.display = "block";
+
+            syncButton.disabled = true;
+
+            return;
+        }
+
+        emptyMessage.style.display = "none";
+
+        syncButton.disabled = false;
+
+        transactions.forEach(function(transaction) {
+
+            const item = document.createElement("div");
+
+            item.className = "pending-item";
+
+            const details = document.createElement("div");
+
+            details.textContent =
+                transaction.sender + " → " +
+                transaction.receiver + " | ₹" +
+                transaction.amount;
+
+            const status = document.createElement("div");
+
+            status.className = "pending-status";
+
+            status.textContent = "Pending synchronization";
+
+            item.appendChild(details);
+
+            item.appendChild(status);
+
+            pendingList.appendChild(item);
+
+        });
+
+    }
+
+
+    // SAVE TRANSACTION LOCALLY WHEN OFFLINE
+
+    transactionForm.addEventListener("submit", function(event) {
+
+        if (navigator.onLine) {
+
+            // Let Flask process the normal POST request.
+            return;
+
+        }
+
+        event.preventDefault();
+
+        const sender =
+            transactionForm.elements["sender"].value.trim();
+
+        const receiver =
+            transactionForm.elements["receiver"].value.trim();
+
+        const amount =
+            Number(transactionForm.elements["amount"].value);
+
+        if (
+            !sender ||
+            !receiver ||
+            !Number.isFinite(amount) ||
+            amount <= 0
+        ) {
+
+            alert("Please enter valid transaction details.");
+
+            return;
+        }
+
+        const transactions = getPendingTransactions();
+
+        const newTransaction = {
+
+            request_id: crypto.randomUUID(),
+
+            sender: sender,
+
+            receiver: receiver,
+
+            amount: amount,
+
+            created_at: new Date().toISOString()
+
+        };
+
+        transactions.push(newTransaction);
+
+        savePendingTransactions(transactions);
+
+        displayPendingTransactions();
+
+        alert(
+            "Transaction saved locally!\n\n" +
+            "It will be synchronized when you are connected."
+        );
+
+        transactionForm.reset();
+
+    });
+
+
+    // SYNCHRONIZE QUEUED TRANSACTIONS
+
+    async function synchronizeTransactions() {
+
+        if (synchronizationInProgress) {
+            return;
+        }
+
+        if (!navigator.onLine) {
+
+            syncMessage.textContent =
+                "You are offline. Connect to the internet first.";
+
+            return;
+        }
+
+        const transactions = getPendingTransactions();
+
+        if (transactions.length === 0) {
+
+            syncMessage.textContent =
+                "No pending transactions.";
+
+            return;
+        }
+
+        synchronizationInProgress = true;
+
+        syncButton.disabled = true;
+
+        syncMessage.textContent =
+            "Synchronization in progress...";
+
+        let successful = 0;
+
+        let failed = 0;
+
+        for (const transaction of transactions) {
+
+            try {
+
+                const formData = new FormData();
+
+                formData.append("sender", transaction.sender);
+
+                formData.append("receiver", transaction.receiver);
+
+                formData.append("amount", transaction.amount);
+
+                const csrfToken =
+                    transactionForm.elements["csrf_token"].value;
+
+                formData.append("csrf_token", csrfToken);
+
+                const response = await fetch(
+                    window.location.pathname,
+                    {
+                        method: "POST",
+                        body: formData,
+                        credentials: "same-origin"
+                    }
+                );
+
+                if (response.ok) {
+
+                    // Remove successfully submitted transaction.
+
+                    const currentQueue = getPendingTransactions();
+
+                    const updatedQueue = currentQueue.filter(
+                        item => item.request_id !== transaction.request_id
+                    );
+
+                    savePendingTransactions(updatedQueue);
+
+                    successful++;
+
+                }
+
+                else {
+
+                    failed++;
+
+                }
+
+            }
+
+            catch (error) {
+
+                failed++;
+
+            }
+
+        }
+
+        synchronizationInProgress = false;
+
+        displayPendingTransactions();
+
+        if (failed === 0) {
+
+            syncMessage.textContent =
+                successful + " transaction(s) synchronized successfully!";
+
+        }
+
+        else {
+
+            syncMessage.textContent =
+                successful + " synchronized. " +
+                failed + " transaction(s) still pending.";
+
+        }
+
+        syncButton.disabled =
+            getPendingTransactions().length === 0;
+
+    }
+
+
+    // MANUAL SYNC BUTTON
+
+    syncButton.addEventListener(
+        "click",
+        synchronizeTransactions
+    );
+
+
+    // AUTOMATIC SYNC WHEN CONNECTION RETURNS
+
+    window.addEventListener("online", function() {
+
+        updateConnectionStatus();
+
+        if (getPendingTransactions().length > 0) {
+
+            synchronizeTransactions();
+
+        }
+
+    });
+
+
+    // OFFLINE EVENT
+
+    window.addEventListener("offline", function() {
+
+        updateConnectionStatus();
+
+    });
+
+
+    // INITIALIZE PAGE
+
+    updateConnectionStatus();
+
+    displayPendingTransactions();
+
+</script>
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function() {
+
+        navigator.serviceWorker.register("/service-worker.js")
+
+            .then(function(registration) {
+
+                console.log(
+                    "OfflineChainGuard Service Worker registered!",
+                    registration.scope
+                );
+
+            })
+
+            .catch(function(error) {
+
+                console.error(
+                    "Service Worker registration failed:",
+                    error
+                );
+
+            });
+
+    });
+
+}
+
+</script>
+</body>
+</html>

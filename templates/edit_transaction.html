@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Transaction | OfflineChainGuard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #EDE8DF, #DCE5DC);
+            color: #344B43;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 530px;
+            background: #F8F5EF;
+            padding: 38px;
+            border-radius: 18px;
+            border: 1px solid #C7D4C9;
+            box-shadow: 0 12px 35px rgba(52, 75, 67, 0.15);
+        }
+
+        .brand {
+            text-align: center;
+            color: #79516E;
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #344B43;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718078;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .transaction-id {
+            text-align: center;
+            color: #52675D;
+            background: #E3E9E1;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            color: #52675D;
+            font-weight: bold;
+            margin-bottom: 9px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            margin-bottom: 22px;
+            border: 1px solid #C7D4C9;
+            border-radius: 8px;
+            background: #FFFFFF;
+            color: #344B43;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #8FA99A;
+            box-shadow: 0 0 0 3px rgba(143, 169, 154, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #526F60;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #344B43;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 24px;
+            color: #79516E;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: #A45F7E;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="brand">OfflineChainGuard</div>
+
+        <h2>Edit Transaction</h2>
+
+        <p class="subtitle">
+            Update your transaction details securely.
+        </p>
+
+        <p class="transaction-id">
+            Transaction ID: {{ transaction.id }}
+        </p>
+
+        <form method="POST">
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+            >
+
+            <label for="sender">Sender</label>
+            <input
+                type="text"
+                id="sender"
+                name="sender"
+                value="{{ transaction.sender }}"
+                required
+            >
+
+            <label for="receiver">Receiver</label>
+            <input
+                type="text"
+                id="receiver"
+                name="receiver"
+                value="{{ transaction.receiver }}"
+                required
+            >
+
+            <label for="amount">Amount</label>
+            <input
+                type="number"
+                id="amount"
+                name="amount"
+                value="{{ transaction.amount }}"
+                min="0.01"
+                step="0.01"
+                required
+            >
+
+            <button type="submit" class="btn">
+                Save Changes
+            </button>
+
+        </form>
+
+        <a
+            href="{{ url_for('transaction_history') }}"
+            class="back-link"
+        >
+            ← Back to Transactions
+        </a>
+
+    </div>
+
+</body>
+</html>

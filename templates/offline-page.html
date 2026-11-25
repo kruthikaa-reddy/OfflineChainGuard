@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Offline | OfflineChainGuard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #E9EEF5;
+            color: #26364D;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            max-width: 480px;
+            width: 100%;
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(30, 50, 80, 0.12);
+        }
+
+        .icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #263B59;
+            font-size: 25px;
+        }
+
+        p {
+            color: #7B8798;
+            line-height: 1.6;
+        }
+
+        .status {
+            background: #FFF0E6;
+            color: #A65321;
+            padding: 14px;
+            border-radius: 9px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        button {
+            background: #344761;
+            color: white;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #26364D;
+        }
+
+        .note {
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="icon">📡</div>
+
+    <h1>You are currently offline</h1>
+
+    <p>
+        OfflineChainGuard cannot connect to the server right now.
+        Your internet connection may be unavailable.
+    </p>
+
+    <div class="status">
+        Offline Mode Active
+    </div>
+
+    <p>
+        Transactions saved previously in your browser remain stored locally.
+        When connectivity returns, you can synchronize pending transactions.
+    </p>
+
+    <button onclick="window.location.reload()">
+        Try Connecting Again
+    </button>
+
+    <p class="note">
+        Your locally queued transactions are stored in this browser.
+    </p>
+
+</div>
+
+</body>
+</html>
